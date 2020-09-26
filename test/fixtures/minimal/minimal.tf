@@ -97,7 +97,7 @@ variable "app" {
   type = "string"
 }
 
-output "module_under_test-key-id" {
+output "module_under_test-key_id" {
   value = "${module.it_minimal.key_id}"
 }
 

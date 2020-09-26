@@ -1,0 +1,24 @@
+---
+driver:
+  name: terraform
+  root_module_directory: test/fixtures/minimal
+  variable_files:
+    - "test/fixtures/minimal/minimal.tfvars"
+  color: false
+  command_timeout: 600
+
+provisioner:
+  name: terraform
+
+platforms:
+  - name: aws
+
+verifier:
+  name: terraform
+  format: doc
+  groups:
+    - name: terraform
+      controls:
+        - kms
+suites:
+  - name: minimal

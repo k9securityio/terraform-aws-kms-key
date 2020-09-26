@@ -14,21 +14,21 @@ all_managed_keys = [actual_key_id]
 
 control 'kms' do
 
-  describe "common properties for managed KMS keys" do
-    all_managed_keys.each do | key_id |
-      describe kms(key_id) do
-        it { should exist }
-        it { should be_enabled }
-
-
-        #it { should have_tag('Owner').value(expect_owner) }
-        #it { should have_tag('Name').value(key_id) }
-        #it { should have_tag('Environment').value(expect_env) }
-        #it { should have_tag('Application').value(expect_app) }
-        #it { should have_tag('ManagedBy').value('Terraform') }
-      end
-    end
-  end
+  #describe "common properties for managed KMS keys" do
+  #  all_managed_keys.each do | key_id |
+  #    describe kms(key_id) do
+  #      it { should exist }
+  #      it { should be_enabled }
+  #
+  #
+  #      #it { should have_tag('Owner').value(expect_owner) }
+  #      #it { should have_tag('Name').value(key_id) }
+  #      #it { should have_tag('Environment').value(expect_env) }
+  #      #it { should have_tag('Application').value(expect_app) }
+  #      #it { should have_tag('ManagedBy').value('Terraform') }
+  #    end
+  #  end
+  #end
 
   #describe "KMS key #{actual_key_id}" do
   #  subject { kms(actual_key_id) }

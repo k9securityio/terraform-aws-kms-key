@@ -42,6 +42,37 @@ module "it_minimal" {
   # unused: allow_delete_data_arns          = [] (default)
 }
 
+
+locals {
+  example_administrator_arns = [
+    "arn:aws:iam::12345678910:user/ci",
+    "arn:aws:iam::12345678910:user/person1"
+  ]
+
+  example_read_data_arns = [
+    "arn:aws:iam::12345678910:user/person1",
+    "arn:aws:iam::12345678910:role/appA",
+  ]
+
+  example_write_data_arns = "${local.read_data_arns}"
+}
+
+module "declarative_privilege_policy" {
+  source        = "../../../k9policy"
+
+  allow_administer_resource_arns = "${local.example_administrator_arns}"
+  allow_read_data_arns           = "${local.example_read_data_arns}"
+  allow_write_data_arns          = "${local.example_write_data_arns}"
+
+  # unused: allow_delete_data_arns          = [] (default)
+  # unused: allow_use_resource_arns         = [] (default)
+}
+
+resource "local_file" "declarative_privilege_policy" {
+  content  = "${module.declarative_privilege_policy.policy_json}"
+  filename = "${path.module}/generated/declarative_privilege_policy.json"
+}
+
 variable "logical_name" {
   type = "string"
 }

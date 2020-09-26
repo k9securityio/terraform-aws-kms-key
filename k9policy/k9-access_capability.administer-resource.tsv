@@ -1,0 +1,12 @@
+kms:CancelKeyDeletion
+kms:ConnectCustomKeyStore
+kms:CreateCustomKeyStore
+kms:CreateGrant
+kms:DisconnectCustomKeyStore
+kms:PutKeyPolicy
+kms:RetireGrant
+kms:RevokeGrant
+kms:ScheduleKeyDeletion
+kms:TagResource
+kms:UntagResource
+kms:UpdateCustomKeyStore

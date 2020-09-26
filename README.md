@@ -23,7 +23,7 @@ This module addresses these problems by helping you declare your intent and let 
 Specify context about your use case and intended access, then the module will:
 
 * create a key and alias named using your context
-* generate a least privilege bucket policy
+* generate a least privilege resource policy
 * tag resources according to the [k9 Security tagging model](https://k9security.io/docs/guide-to-tagging-cloud-deployments/)
 
 [![CircleCI](https://circleci.com/gh/k9securityio/tf_aws_kms_key.svg?style=svg)](https://circleci.com/gh/k9securityio/tf_aws_kms_key)
@@ -31,7 +31,7 @@ Specify context about your use case and intended access, then the module will:
 ## Usage
 The root of this repository contains a Terraform module that manages an AWS KMS key ([KMS key API](interface.md)).
 
-The k9 KMS key module allows you to define who should have access to the bucket in terms of k9's 
+The k9 KMS key module allows you to define who should have access to the key in terms of k9's 
 [access capability model](https://k9security.io/docs/k9-access-capability-model/).  Instead of 
 writing a least privilege access policy directly in terms of API actions like `kms:Decrypt`, you declare
 who should be able to `read-data`.  This module supports the following access capabilities:
@@ -41,12 +41,12 @@ who should be able to `read-data`.  This module supports the following access ca
 * `write-data`
 * `delete-data`   
 
-First, define who should access to the bucket as lists of [AWS principal IDs](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html).  
+First, define who should access to the key as lists of [AWS principal IDs](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html).  
 The most common principals you will use are AWS IAM user and role ARNs such as `arn:aws:iam::12345678910:role/appA`.  
 Consider using `locals` to help document intent, keep lists synchronized, and reduce duplication.   
  
 ```hcl-terraform
-# Define which principals may access the bucket and what capabilities they should have
+# Define which principals may access the key and what capabilities they should have
 # k9 access capabilities are defined at https://k9security.io/docs/k9-access-capability-model/  
 locals {
   administrator_arns = [
@@ -70,10 +70,8 @@ module "encryption_key" {
   
   # the logical name for the use case, e.g. docs, reports, media, backups 
   logical_name = "docs"
-  # the region to create the bucket in
+  # the region to create the key in
   region       = "us-east-1"
-
-  logging_target_bucket = "name of the bucket to log to, e.g. my-logs-bucket"
 
   org   = "someorg"
   owner = "someowner"
@@ -88,8 +86,8 @@ module "encryption_key" {
 
 This code enables the following access:
 
-* allow `ci` and `person1` users to administer the bucket
-* allow `person1` user and `appA` role to read and write data from the bucket
+* allow `ci` and `person1` users to administer the key
+* allow `person1` user and `appA` role to read and write data from the key
 * deny all other access; this is the tricky bit!
 
 You can see the policy this configuration generates in 
@@ -114,13 +112,13 @@ Alternatively, you can create your own KMS key resource policy and provide it to
 
 ### Use the `k9policy` submodule directly 
 
-You can also generate a least privilege bucket policy using the `k9policy` submodule directly ([k9policy API](k9policy/interface.md)).  
-This enables you to use a k9 bucket policy with another Terraform module. 
+You can also generate a least privilege resource policy using the `k9policy` submodule directly ([k9policy API](k9policy/interface.md)).  
+This enables you to use a k9 key resource policy with another Terraform module. 
 
 Instantiate the `k9policy` module directly like this:
 
 ```hcl-terraform
-module "least_privilege_bucket_policy" {
+module "least_privilege_key_resource_policy" {
   source        = "git@github.com:k9securityio/tf_aws_kms_key.git//k9policy"
   kms_key_arn = "${module.encryption_key.key_arn}"
 
@@ -139,8 +137,8 @@ examples of how to use these KMS key and policy modules.
 
 There are at least two ways to migrate to this module:
 
-1. if you are already using Terraform and want to try out a better bucket policy, you can use the policy submodule directly. This is described above and demonstrated in the [tests](test/fixtures/minimal/minimal.tf).
-2. if you want to migrate an existing bucket into this Terraform module, you can use `terraform import` or `terraform mv` to migrate the AWS bucket resource into a new Terraform module definition.  
+1. if you are already using Terraform and want to try out a better key resource policy, you can use the policy submodule directly. This is described above and demonstrated in the [tests](test/fixtures/minimal/minimal.tf).
+2. if you want to migrate an existing key into this Terraform module, you can use `terraform import` or `terraform mv` to migrate the AWS key resource into a new Terraform module definition.  
 
 If you have questions or would like help, feel free to file a PR or [contact us](https://k9security.io/contact/) privately.
 

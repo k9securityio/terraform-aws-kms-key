@@ -20,5 +20,13 @@ verifier:
     - name: terraform
       controls:
         - kms
+  systems:
+    - name: aws
+      controls:
+        - kms
+      backend: local
+      reporter:
+        - documentation
+
 suites:
   - name: minimal

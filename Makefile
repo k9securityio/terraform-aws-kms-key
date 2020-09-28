@@ -1,7 +1,7 @@
 .PHONY: deps format converge verify destroy shell test kitchen build circleci-build
 
 IMAGE_NAME := qualimente/terraform-infra-dev
-IMAGE_TAG := 0.11.14
+IMAGE_TAG := 0.12.29
 
 FQ_IMAGE := $(IMAGE_NAME):$(IMAGE_TAG)
 

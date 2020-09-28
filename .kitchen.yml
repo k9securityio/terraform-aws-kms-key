@@ -21,7 +21,7 @@ verifier:
       controls:
         - kms
   systems:
-    - name: local
+    - name: aws
       controls:
         - kms
       backend: local

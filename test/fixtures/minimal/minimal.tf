@@ -101,3 +101,7 @@ output "module_under_test-key_id" {
   value = "${module.it_minimal.key_id}"
 }
 
+output "module_under_test-key_alias" {
+  value = "${module.it_minimal.key_alias}"
+}
+

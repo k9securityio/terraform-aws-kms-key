@@ -8,8 +8,6 @@ FQ_IMAGE := $(IMAGE_NAME):$(IMAGE_TAG)
 TERRAFORM_OPTS :=
 terraform = @$(call execute,terraform $(1) $(TERRAFORM_OPTS))
 
-tflint = @$(call execute,tflint $(1))
-
 terraform-docs = @$(call execute,terraform-docs $(1))
 
 KITCHEN_OPTS :=
@@ -71,7 +69,6 @@ format:
 
 lint:
 	@$(call terraform,get)
-	@$(call tflint,)
 
 converge:
 	@$(call kitchen,converge)

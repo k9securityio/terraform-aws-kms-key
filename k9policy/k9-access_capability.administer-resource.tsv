@@ -4,6 +4,7 @@ kms:CancelKeyDeletion
 kms:ConnectCustomKeyStore
 kms:CreateCustomKeyStore
 kms:CreateGrant
+kms:DeleteAlias
 kms:DisconnectCustomKeyStore
 kms:DisableKey
 kms:DisableKeyRotation

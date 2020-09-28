@@ -1,3 +1,2 @@
-kms:DeleteAlias
 kms:DeleteCustomKeyStore
 kms:DeleteImportedKeyMaterial

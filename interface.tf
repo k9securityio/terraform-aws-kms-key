@@ -22,14 +22,14 @@ variable "deletion_window_in_days" {
 
 variable "enable_key_rotation" {
   description = "(optional) enable annual key rotation by AWS"
-  type        = string
-  default     = "true"
+  type        = bool
+  default     = true
 }
 
 variable "enabled" {
   description = "(optional) whether the key is enabled for use or not"
-  type        = string
-  default     = "true"
+  type        = bool
+  default     = true
 }
 
 variable "org" {

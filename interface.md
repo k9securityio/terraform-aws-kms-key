@@ -31,8 +31,8 @@
 | confidentiality | Expected Confidentiality level of data protected by the key, e.g. Public, Internal, Confidential, Restricted | `string` | `""` | no |
 | cost\_center | The managerial accounting cost center for the key | `string` | `""` | no |
 | deletion\_window\_in\_days | (optional) the length of the pending deletion window in days; | `string` | `"30"` | no |
-| enable\_key\_rotation | (optional) enable annual key rotation by AWS | `string` | `"true"` | no |
-| enabled | (optional) whether the key is enabled for use or not | `string` | `"true"` | no |
+| enable\_key\_rotation | (optional) enable annual key rotation by AWS | `bool` | `true` | no |
+| enabled | (optional) whether the key is enabled for use or not | `bool` | `true` | no |
 | env | Name of the environment the key supports | `string` | n/a | yes |
 | integrity | Expected Integrity level of data protected by the key, e.g. 0.999, 0.9999, 0.99999, 0.999999 | `string` | `""` | no |
 | logical\_name | Specify the 'logical' name of the key appropriate for the key's primary use case, e.g. media or orders | `string` | n/a | yes |

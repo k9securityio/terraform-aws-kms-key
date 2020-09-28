@@ -1,8 +1,14 @@
+kms:CreateAlias
+kms:CreateKey
 kms:CancelKeyDeletion
 kms:ConnectCustomKeyStore
 kms:CreateCustomKeyStore
 kms:CreateGrant
 kms:DisconnectCustomKeyStore
+kms:DisableKey
+kms:DisableKeyRotation
+kms:EnableKey
+kms:EnableKeyRotation
 kms:PutKeyPolicy
 kms:RetireGrant
 kms:RevokeGrant

@@ -9,6 +9,8 @@ kms:DisableKey
 kms:DisableKeyRotation
 kms:EnableKey
 kms:EnableKeyRotation
+kms:GetKeyRotationStatus
+kms:GetKeyPolicy
 kms:PutKeyPolicy
 kms:RetireGrant
 kms:RevokeGrant

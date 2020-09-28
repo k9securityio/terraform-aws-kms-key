@@ -11,11 +11,11 @@ locals {
   administrator_arns = [
     "arn:aws:iam::139710491120:user/ci",
     "arn:aws:iam::139710491120:user/skuenzli",
+    "arn:aws:sts::139710491120:federated-user/skuenzli",
   ]
 
   write_data_arns = [
       "arn:aws:iam::139710491120:user/skuenzli",
-      "arn:aws:sts::139710491120:federated-user/skuenzli",
     ]
 
   read_data_arns = distinct(concat(local.administrator_arns, local.write_data_arns))

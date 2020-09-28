@@ -1,9 +1,3 @@
-kms:CreateAlias
-kms:CreateKey
-kms:DisableKey
-kms:DisableKeyRotation
-kms:EnableKey
-kms:EnableKeyRotation
 kms:Encrypt
 kms:GenerateDataKey
 kms:GenerateDataKeyPair

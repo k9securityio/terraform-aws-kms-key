@@ -15,9 +15,21 @@ variable "policy" {
 }
 
 variable "deletion_window_in_days" {
-  description = "(optional) the length of the pending deletion window in days;"
+  description = "(optional) the length of the pending deletion window in days; defaults to 30 days"
+  type        = number
+  default     = 30
+}
+
+variable "customer_master_key_spec" {
+  description = "(optional) specifies whether the key contains a symmetric key or an asymmetric key pair and the encryption algorithms or signing algorithms that the key supports; defaults to SYMMETRIC_DEFAULT"
   type        = string
-  default     = "30"
+  default     = "SYMMETRIC_DEFAULT"
+}
+
+variable "key_usage" {
+  description = "(optional) specifies the intended use of the key; defaults to ENCRYPT_DECRYPT"
+  type = string
+  default = "ENCRYPT_DECRYPT"
 }
 
 variable "enable_key_rotation" {

@@ -8,6 +8,8 @@ resource "random_id" "testing_suffix" {
 }
 
 locals {
+  testing_suffix_hex = random_id.testing_suffix.hex
+
   administrator_arns = [
     "arn:aws:iam::139710491120:user/ci",
     "arn:aws:iam::139710491120:user/skuenzli",
@@ -27,7 +29,7 @@ locals {
 module "it_minimal" {
   source = "../../../"
 
-  logical_name = "${var.logical_name}-${random_id.testing_suffix.hex}"
+  logical_name = "${var.logical_name}-${local.testing_suffix_hex}"
   region       = var.region
 
   org   = var.org
@@ -39,6 +41,8 @@ module "it_minimal" {
   allow_read_data_arns           = local.read_data_arns
   allow_write_data_arns          = local.write_data_arns
   # unused: allow_delete_data_arns          = [] (default)
+
+  deletion_window_in_days = 7
 }
 
 locals {
@@ -92,6 +96,10 @@ variable "env" {
 
 variable "app" {
   type = string
+}
+
+output "module_under_test-testing_suffix_hex" {
+  value = local.testing_suffix_hex
 }
 
 output "module_under_test-key_id" {

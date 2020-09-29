@@ -96,9 +96,8 @@
       "Condition": {
         "ArnEquals": {
           "aws:PrincipalArn": [
-            "arn:aws:sts::139710491120:federated-user/skuenzli",
-            "arn:aws:iam::139710491120:user/skuenzli",
-            "arn:aws:iam::139710491120:user/ci"
+            "arn:aws:iam::12345678910:user/person1",
+            "arn:aws:iam::12345678910:role/appA"
           ]
         }
       }
@@ -145,9 +144,6 @@
       "Condition": {
         "ArnNotEquals": {
           "aws:PrincipalArn": [
-            "arn:aws:sts::139710491120:federated-user/skuenzli",
-            "arn:aws:iam::139710491120:user/skuenzli",
-            "arn:aws:iam::139710491120:user/ci",
             "arn:aws:iam::12345678910:user/person1",
             "arn:aws:iam::12345678910:user/ci",
             "arn:aws:iam::12345678910:role/appA"

@@ -15,9 +15,9 @@ variable "policy" {
 }
 
 variable "deletion_window_in_days" {
-  description = "(optional) the length of the pending deletion window in days;"
-  type        = string
-  default     = "30"
+  description = "(optional) the length of the pending deletion window in days; defaults to 30 days"
+  type        = number
+  default     = 30
 }
 
 variable "customer_master_key_spec" {

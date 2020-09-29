@@ -59,7 +59,7 @@ locals {
     "arn:aws:iam::12345678910:role/appA",
   ]
 
-  write_data_arns = "${local.read_data_arns}"
+  write_data_arns = local.read_data_arns
 }
 ```
 
@@ -78,9 +78,9 @@ module "encryption_key" {
   env   = "dev"
   app   = "someapi"
 
-  allow_administer_resource_arns = "${local.administrator_arns}"
-  allow_read_data_arns           = "${local.read_data_arns}"
-  allow_write_data_arns          = "${local.write_data_arns}"
+  allow_administer_resource_arns = local.administrator_arns
+  allow_read_data_arns           = local.read_data_arns
+  allow_write_data_arns          = local.write_data_arns
 }
 ```
 
@@ -120,11 +120,11 @@ Instantiate the `k9policy` module directly like this:
 ```hcl-terraform
 module "least_privilege_key_resource_policy" {
   source        = "git@github.com:k9securityio/tf_aws_kms_key.git//k9policy"
-  kms_key_arn = "${module.encryption_key.key_arn}"
+  kms_key_arn   = module.encryption_key.key_arn
 
-  allow_administer_resource_arns = "${local.administrator_arns}"
-  allow_read_data_arns           = "${local.read_data_arns}"
-  allow_write_data_arns          = "${local.write_data_arns}"
+  allow_administer_resource_arns = local.administrator_arns
+  allow_read_data_arns           = local.read_data_arns
+  allow_write_data_arns          = local.write_data_arns
 }
 ```
 

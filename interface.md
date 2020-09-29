@@ -30,12 +30,13 @@
 | compliance\_scheme | The regulatory compliance scheme the resource’s configuration should conform to | `string` | `""` | no |
 | confidentiality | Expected Confidentiality level of data protected by the key, e.g. Public, Internal, Confidential, Restricted | `string` | `""` | no |
 | cost\_center | The managerial accounting cost center for the key | `string` | `""` | no |
-| customer\_master\_key\_spec | (optional) specifies whether the key contains a symmetric key or an asymmetric key pair and the encryption algorithms or signing algorithms that the key supports.; Defaults to SYMMETRIC\_DEFAULT | `string` | `"SYMMETRIC_DEFAULT"` | no |
+| customer\_master\_key\_spec | (optional) specifies whether the key contains a symmetric key or an asymmetric key pair and the encryption algorithms or signing algorithms that the key supports; defaults to SYMMETRIC\_DEFAULT | `string` | `"SYMMETRIC_DEFAULT"` | no |
 | deletion\_window\_in\_days | (optional) the length of the pending deletion window in days; | `string` | `"30"` | no |
 | enable\_key\_rotation | (optional) enable annual key rotation by AWS | `bool` | `true` | no |
 | enabled | (optional) whether the key is enabled for use or not | `bool` | `true` | no |
 | env | Name of the environment the key supports | `string` | n/a | yes |
 | integrity | Expected Integrity level of data protected by the key, e.g. 0.999, 0.9999, 0.99999, 0.999999 | `string` | `""` | no |
+| key\_usage | (optional) specifies the intended use of the key; defaults to ENCRYPT\_DECRYPT | `string` | `"ENCRYPT_DECRYPT"` | no |
 | logical\_name | Specify the 'logical' name of the key appropriate for the key's primary use case, e.g. media or orders | `string` | n/a | yes |
 | org | Short id of the organization that owns the key | `string` | n/a | yes |
 | owner | Name of the team or department that responsible for the key | `string` | n/a | yes |

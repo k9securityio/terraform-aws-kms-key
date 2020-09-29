@@ -1,4 +1,4 @@
-.PHONY: deps format converge verify destroy shell test kitchen build circleci-build
+.PHONY: clean deps init format lint converge verify destroy circleci-build kitchen docs
 
 IMAGE_NAME := qualimente/terraform-infra-dev
 IMAGE_TAG := 0.12.29

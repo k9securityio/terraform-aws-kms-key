@@ -49,9 +49,9 @@ variable "allow_delete_data_test" {
 variable "allow_custom_actions" {
   type = list(string)
 
-  # the AllowRestrictedCustomActions statement needs a valid s3 action, so default to something innocuous: s3:GetAnalyticsConfiguration
-  default     = ["s3:GetAnalyticsConfiguration"]
-  description = "A custom list of S3 API actions to authorize ARNs listed in `allow_custom_actions_arns` to execute against this bucket."
+  # the AllowRestrictedCustomActions statement needs a valid API action, so default to something innocuous: kms:DescribeKey
+  default     = ["kms:DescribeKey"]
+  description = "A custom list of KMS API actions to authorize ARNs listed in `allow_custom_actions_arns` to execute against this bucket."
 }
 
 variable "allow_custom_actions_arns" {

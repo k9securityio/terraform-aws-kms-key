@@ -122,7 +122,7 @@
     {
       "Sid": "AllowRestrictedCustomActions",
       "Effect": "Allow",
-      "Action": "s3:GetAnalyticsConfiguration",
+      "Action": "kms:DescribeKey",
       "Resource": "*",
       "Principal": {
         "AWS": "*"
@@ -136,7 +136,7 @@
     {
       "Sid": "DenyEveryoneElse",
       "Effect": "Deny",
-      "Action": "s3:*",
+      "Action": "kms:*",
       "Resource": "*",
       "Principal": {
         "AWS": "*"

@@ -146,7 +146,7 @@ data "aws_iam_policy_document" "resource_policy" {
 
     effect = "Deny"
 
-    actions = ["s3:*"]
+    actions = ["kms:*"]
 
     resources = ["*"]
 

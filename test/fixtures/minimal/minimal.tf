@@ -41,6 +41,8 @@ module "it_minimal" {
   allow_read_data_arns           = local.read_data_arns
   allow_write_data_arns          = local.write_data_arns
   # unused: allow_delete_data_arns          = [] (default)
+
+  deletion_window_in_days = 7
 }
 
 locals {

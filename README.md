@@ -23,7 +23,7 @@ This module addresses these problems by helping you declare your intent and let 
 Specify context about your use case and intended access, then the module will:
 
 * create a key and alias named using your context
-* generate a least privilege resource policy
+* generate a least privilege resource policy using the [k9 access capability model](https://k9security.io/docs/k9-access-capability-model/)
 * tag resources according to the [k9 Security tagging model](https://k9security.io/docs/guide-to-tagging-cloud-deployments/)
 
 [![CircleCI](https://circleci.com/gh/k9securityio/tf_aws_kms_key.svg?style=svg)](https://circleci.com/gh/k9securityio/tf_aws_kms_key)

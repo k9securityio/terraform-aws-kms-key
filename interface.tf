@@ -28,8 +28,8 @@ variable "customer_master_key_spec" {
 
 variable "key_usage" {
   description = "(optional) specifies the intended use of the key; defaults to ENCRYPT_DECRYPT"
-  type = string
-  default = "ENCRYPT_DECRYPT"
+  type        = string
+  default     = "ENCRYPT_DECRYPT"
 }
 
 variable "enable_key_rotation" {

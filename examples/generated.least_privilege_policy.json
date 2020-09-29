@@ -12,9 +12,18 @@
         "kms:RevokeGrant",
         "kms:RetireGrant",
         "kms:PutKeyPolicy",
+        "kms:GetKeyRotationStatus",
+        "kms:GetKeyPolicy",
+        "kms:EnableKeyRotation",
+        "kms:EnableKey",
         "kms:DisconnectCustomKeyStore",
+        "kms:DisableKeyRotation",
+        "kms:DisableKey",
+        "kms:DeleteAlias",
+        "kms:CreateKey",
         "kms:CreateGrant",
         "kms:CreateCustomKeyStore",
+        "kms:CreateAlias",
         "kms:ConnectCustomKeyStore",
         "kms:CancelKeyDeletion"
       ],
@@ -78,13 +87,7 @@
         "kms:GenerateDataKeyPairWithoutPlaintext",
         "kms:GenerateDataKeyPair",
         "kms:GenerateDataKey",
-        "kms:Encrypt",
-        "kms:EnableKeyRotation",
-        "kms:EnableKey",
-        "kms:DisableKeyRotation",
-        "kms:DisableKey",
-        "kms:CreateKey",
-        "kms:CreateAlias"
+        "kms:Encrypt"
       ],
       "Resource": "*",
       "Principal": {
@@ -94,7 +97,8 @@
         "ArnEquals": {
           "aws:PrincipalArn": [
             "arn:aws:sts::139710491120:federated-user/skuenzli",
-            "arn:aws:iam::139710491120:user/skuenzli"
+            "arn:aws:iam::139710491120:user/skuenzli",
+            "arn:aws:iam::139710491120:user/ci"
           ]
         }
       }
@@ -104,8 +108,7 @@
       "Effect": "Allow",
       "Action": [
         "kms:DeleteImportedKeyMaterial",
-        "kms:DeleteCustomKeyStore",
-        "kms:DeleteAlias"
+        "kms:DeleteCustomKeyStore"
       ],
       "Resource": "*",
       "Principal": {
@@ -144,6 +147,7 @@
           "aws:PrincipalArn": [
             "arn:aws:sts::139710491120:federated-user/skuenzli",
             "arn:aws:iam::139710491120:user/skuenzli",
+            "arn:aws:iam::139710491120:user/ci",
             "arn:aws:iam::12345678910:user/person1",
             "arn:aws:iam::12345678910:user/ci",
             "arn:aws:iam::12345678910:role/appA"

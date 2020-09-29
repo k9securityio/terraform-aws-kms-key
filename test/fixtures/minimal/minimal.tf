@@ -56,7 +56,7 @@ locals {
     "arn:aws:iam::12345678910:role/appA",
   ]
 
-  example_write_data_arns = local.read_data_arns
+  example_write_data_arns = local.example_read_data_arns
 }
 
 module "declarative_privilege_policy" {

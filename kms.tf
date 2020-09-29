@@ -48,8 +48,11 @@ module "resource_policy" {
 }
 
 resource "aws_kms_key" "key" {
-  description             = "Key for ${var.logical_name} in ${var.env}"
-  is_enabled              = var.enabled
+  description = "Key for ${var.logical_name} in ${var.env}"
+  is_enabled  = var.enabled
+
+  customer_master_key_spec = var.customer_master_key_spec
+
   deletion_window_in_days = var.deletion_window_in_days
   enable_key_rotation     = var.enable_key_rotation
   tags                    = module.context.tags

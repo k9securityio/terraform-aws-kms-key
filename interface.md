@@ -30,6 +30,7 @@
 | compliance\_scheme | The regulatory compliance scheme the resource’s configuration should conform to | `string` | `""` | no |
 | confidentiality | Expected Confidentiality level of data protected by the key, e.g. Public, Internal, Confidential, Restricted | `string` | `""` | no |
 | cost\_center | The managerial accounting cost center for the key | `string` | `""` | no |
+| customer\_master\_key\_spec | (optional) specifies whether the key contains a symmetric key or an asymmetric key pair and the encryption algorithms or signing algorithms that the key supports.; Defaults to SYMMETRIC\_DEFAULT | `string` | `"SYMMETRIC_DEFAULT"` | no |
 | deletion\_window\_in\_days | (optional) the length of the pending deletion window in days; | `string` | `"30"` | no |
 | enable\_key\_rotation | (optional) enable annual key rotation by AWS | `bool` | `true` | no |
 | enabled | (optional) whether the key is enabled for use or not | `bool` | `true` | no |

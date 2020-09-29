@@ -20,6 +20,12 @@ variable "deletion_window_in_days" {
   default     = "30"
 }
 
+variable "customer_master_key_spec" {
+  description = "(optional) specifies whether the key contains a symmetric key or an asymmetric key pair and the encryption algorithms or signing algorithms that the key supports.; Defaults to SYMMETRIC_DEFAULT"
+  type        = string
+  default     = "SYMMETRIC_DEFAULT"
+}
+
 variable "enable_key_rotation" {
   description = "(optional) enable annual key rotation by AWS"
   type        = bool

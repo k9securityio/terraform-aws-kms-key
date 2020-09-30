@@ -3,11 +3,6 @@ variable "logical_name" {
   description = "Specify the 'logical' name of the key appropriate for the key's primary use case, e.g. media or orders"
 }
 
-variable "region" {
-  type        = string
-  description = "The region to instantiate the key in"
-}
-
 variable "policy" {
   description = "(optional) fully rendered policy; if unspecified, the policy will be generated from the `allow_*` variables"
   type        = string

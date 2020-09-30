@@ -30,8 +30,7 @@ module "it_minimal" {
   source = "../../../"
 
   logical_name = "${var.logical_name}-${local.testing_suffix_hex}"
-  region       = var.region
-
+  
   org   = var.org
   owner = var.owner
   env   = var.env
@@ -75,10 +74,6 @@ resource "local_file" "declarative_privilege_policy" {
 }
 
 variable "logical_name" {
-  type = string
-}
-
-variable "region" {
   type = string
 }
 

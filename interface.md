@@ -41,7 +41,6 @@
 | org | Short id of the organization that owns the key | `string` | n/a | yes |
 | owner | Name of the team or department that responsible for the key | `string` | n/a | yes |
 | policy | (optional) fully rendered policy; if unspecified, the policy will be generated from the `allow_*` variables | `string` | `""` | no |
-| region | The region to instantiate the key in | `string` | n/a | yes |
 | role | The role or function of this resource within the Application's logical architecture, e.g. load balancer, app server, database | `string` | `""` | no |
 
 ## Outputs

@@ -70,8 +70,6 @@ module "encryption_key" {
   
   # the logical name for the use case, e.g. docs, reports, media, backups 
   logical_name = "docs"
-  # the region to create the key in
-  region       = "us-east-1"
 
   org   = "someorg"
   owner = "someowner"

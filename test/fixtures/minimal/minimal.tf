@@ -73,6 +73,24 @@ resource "local_file" "declarative_privilege_policy" {
   filename = "${path.module}/generated/declarative_privilege_policy.json"
 }
 
+resource "aws_dynamodb_table" "encrypted" {
+  name = "${var.logical_name}-${local.testing_suffix_hex}"
+  hash_key = "key"
+
+  attribute {
+      name = "key"
+      type = "S"
+    }
+
+  server_side_encryption {
+    enabled = true
+    kms_key_arn = module.it_minimal.key_arn
+  }
+
+  billing_mode = "PAY_PER_REQUEST"
+
+}
+
 variable "logical_name" {
   type = string
 }

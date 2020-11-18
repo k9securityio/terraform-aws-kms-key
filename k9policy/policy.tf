@@ -142,6 +142,25 @@ data "aws_iam_policy_document" "resource_policy" {
   }
 
   statement {
+    sid = "AllowAWSServices"
+
+    actions = ["kms:*"]
+
+    resources = ["*"]
+
+    principals {
+      type = "Service"
+      identifiers = ["dynamodb.amazonaws.com"]
+    }
+
+//    condition {
+//      test     = "ForAnyValue:StringEquals"
+//      variable = "aws:CalledVia"
+//      values   = ["dynamodb.amazonaws.com", "cloudformation.amazonaws.com"]
+//    }
+  }
+
+  statement {
     sid = "DenyEveryoneElse"
 
     effect = "Deny"
@@ -167,6 +186,10 @@ data "aws_iam_policy_document" "resource_policy" {
       )
       variable = "aws:PrincipalArn"
     }
+    condition {
+      test = "Bool"
+      values = ["false"]
+      variable = "aws:ViaAWSService"
+    }
   }
 }
-

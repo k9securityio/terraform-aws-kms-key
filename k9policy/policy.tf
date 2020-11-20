@@ -1,3 +1,5 @@
+data "aws_caller_identity" "current" {}
+
 locals {
   # future work: retrieve action mappings from k9 api
   actions_administer_resource = sort(
@@ -46,6 +48,23 @@ locals {
 }
 
 data "aws_iam_policy_document" "resource_policy" {
+  statement {
+    # Ensure account's root user retains access to key
+    # even if access is removed for all other principals or those principals are removed
+    sid = "AllowRootUserToAdministerKey"
+
+    effect = "Allow"
+    
+    actions = ["kms:*"]
+
+    principals {
+      type = "AWS"
+      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
+    }
+
+    resources = ["*"]
+  }
+
   statement {
     sid = "AllowRestrictedAdministerResource"
 
@@ -154,42 +173,21 @@ data "aws_iam_policy_document" "resource_policy" {
     }
 
 //    condition {
-//      test     = "ForAnyValue:StringEquals"
-//      variable = "aws:CalledVia"
-//      values   = ["dynamodb.amazonaws.com", "cloudformation.amazonaws.com"]
+//      test = "ArnNotEquals"
+//      values = distinct(
+//        concat(
+//          var.allow_administer_resource_arns,
+//          var.allow_read_data_arns,
+//          var.allow_write_data_arns,
+//          var.allow_delete_data_arns,
+//        ),
+//      )
+//      variable = "aws:PrincipalArn"
 //    }
-  }
-
-  statement {
-    sid = "DenyEveryoneElse"
-
-    effect = "Deny"
-
-    actions = ["kms:*"]
-
-    resources = ["*"]
-
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
-
-    condition {
-      test = "ArnNotEquals"
-      values = distinct(
-        concat(
-          var.allow_administer_resource_arns,
-          var.allow_read_data_arns,
-          var.allow_write_data_arns,
-          var.allow_delete_data_arns,
-        ),
-      )
-      variable = "aws:PrincipalArn"
-    }
-    condition {
-      test = "Bool"
-      values = ["false"]
-      variable = "aws:ViaAWSService"
-    }
-  }
+//    condition {
+//      test = "Bool"
+//      values = ["false"]
+//      variable = "aws:ViaAWSService"
+//    }
+//  }
 }

@@ -171,23 +171,67 @@ data "aws_iam_policy_document" "resource_policy" {
       type = "Service"
       identifiers = ["dynamodb.amazonaws.com"]
     }
+  }
 
-//    condition {
-//      test = "ArnNotEquals"
-//      values = distinct(
-//        concat(
-//          var.allow_administer_resource_arns,
-//          var.allow_read_data_arns,
-//          var.allow_write_data_arns,
-//          var.allow_delete_data_arns,
-//        ),
-//      )
-//      variable = "aws:PrincipalArn"
-//    }
-//    condition {
-//      test = "Bool"
-//      values = ["false"]
-//      variable = "aws:ViaAWSService"
-//    }
-//  }
+  # https://aws.amazon.com/blogs/security/how-to-define-least-privileged-permissions-for-actions-called-by-aws-services/
+  statement {
+    sid = "AllowKMSActionsViaDDB"
+    effect = "Allow"
+    # allow DDB to use the key as long as the local IAM principal is authorized to do so
+    principals {
+      type = "AWS"
+      identifiers = distinct(
+      concat(
+      var.allow_administer_resource_arns,
+      var.allow_read_data_arns,
+      var.allow_write_data_arns,
+      ),
+      )
+    }
+    actions = [
+      "kms:Encrypt",
+      "kms:Decrypt",
+      "kms:ReEncrypt*",
+      "kms:GenerateDataKey",
+      "kms:DescribeKey"
+    ]
+    resources = ["*"]
+
+    condition {
+      test = "ForAnyValue:StringEquals"
+      variable = "aws:CalledVia"
+      values = ["dynamodb.amazonaws.com"]
+    }
+  }
+
+  statement {
+    sid = "DenyEveryoneElse"
+
+    effect = "Deny"
+
+    actions = ["kms:*"]
+
+    resources = ["*"]
+
+    # Deny access to all IAM principals in the account unless explicitly allowed
+    principals {
+      type        = "AWS"
+      identifiers = [
+        data.aws_caller_identity.current.account_id,
+      ]
+    }
+
+    condition {
+      test = "ArnNotEquals"
+      values = distinct(
+        concat(
+          var.allow_administer_resource_arns,
+          var.allow_read_data_arns,
+          var.allow_write_data_arns,
+          var.allow_delete_data_arns,
+        ),
+      )
+      variable = "aws:PrincipalArn"
+    }
+  }
 }

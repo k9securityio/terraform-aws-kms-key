@@ -44,6 +44,14 @@ module "it_minimal" {
   deletion_window_in_days = 7
 }
 
+// Triggers bug in TF!
+// Error: Provider produced inconsistent final plan
+//resource "local_file" "it_minimal_policy" {
+//  content  = module.it_minimal.policy_json
+//  filename = "${path.module}/generated/it_minimal_policy.json"
+//}
+
+
 locals {
   example_administrator_arns = [
     "arn:aws:iam::12345678910:user/ci",
@@ -74,7 +82,7 @@ resource "local_file" "declarative_privilege_policy" {
 }
 
 resource "aws_dynamodb_table" "encrypted" {
-  name = "${var.logical_name}-${local.testing_suffix_hex}"
+  name = "${var.logical_name}-${local.testing_suffix_hex}-1"
   hash_key = "key"
 
   attribute {
@@ -88,7 +96,6 @@ resource "aws_dynamodb_table" "encrypted" {
   }
 
   billing_mode = "PAY_PER_REQUEST"
-
 }
 
 variable "logical_name" {

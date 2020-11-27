@@ -1,6 +1,15 @@
 data "aws_caller_identity" "current" {}
 
 locals {
+  tests_used_in_statements = [
+    var.allow_administer_resource_test,
+    var.allow_custom_arns_test,
+    var.allow_delete_data_test,
+    var.allow_read_data_test,
+    var.allow_write_data_test,
+  ]
+  like_used_in_test_condition = contains(local.tests_used_in_statements, "ArnLike")
+
   # future work: retrieve action mappings from k9 api
   actions_administer_resource = sort(
     distinct(
@@ -178,7 +187,7 @@ data "aws_iam_policy_document" "resource_policy" {
     }
 
     condition {
-      test = "ArnNotEquals"
+      test = local.like_used_in_test_condition ? "ArnNotLike" : "ArnNotEquals"
       values = distinct(
         concat(
           var.allow_administer_resource_arns,

@@ -44,10 +44,12 @@ module "it_minimal" {
   deletion_window_in_days = 7
 }
 
-resource "local_file" "it_minimal_policy" {
-  content  = module.it_minimal.policy_json
-  filename = "${path.module}/generated/it_minimal_policy.json"
-}
+// Frequently triggers bug in local provider v2.0.0 & TF 0.12.29
+//
+//resource "local_file" "it_minimal_policy" {
+//  content  = module.it_minimal.policy_json
+//  filename = "${path.module}/generated/it_minimal_policy.json"
+//}
 
 locals {
   example_administrator_arns = [

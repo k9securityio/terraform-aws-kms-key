@@ -2,6 +2,15 @@
   "Version": "2012-10-17",
   "Statement": [
     {
+      "Sid": "AllowRootUserToAdministerKey",
+      "Effect": "Allow",
+      "Action": "kms:*",
+      "Resource": "*",
+      "Principal": {
+        "AWS": "arn:aws:iam::12345678910:root"
+      }
+    },
+    {
       "Sid": "AllowRestrictedAdministerResource",
       "Effect": "Allow",
       "Action": [
@@ -12,8 +21,6 @@
         "kms:RevokeGrant",
         "kms:RetireGrant",
         "kms:PutKeyPolicy",
-        "kms:GetKeyRotationStatus",
-        "kms:GetKeyPolicy",
         "kms:EnableKeyRotation",
         "kms:EnableKey",
         "kms:DisconnectCustomKeyStore",
@@ -139,7 +146,7 @@
       "Action": "kms:*",
       "Resource": "*",
       "Principal": {
-        "AWS": "*"
+        "AWS": "12345678910"
       },
       "Condition": {
         "ArnNotEquals": {

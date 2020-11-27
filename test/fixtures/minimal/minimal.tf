@@ -82,7 +82,7 @@ resource "local_file" "declarative_privilege_policy" {
 }
 
 resource "aws_dynamodb_table" "encrypted" {
-  name = "${var.logical_name}-${local.testing_suffix_hex}-1"
+  name = "${var.logical_name}-${local.testing_suffix_hex}"
   hash_key = "key"
 
   attribute {

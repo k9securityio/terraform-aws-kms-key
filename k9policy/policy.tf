@@ -161,50 +161,6 @@ data "aws_iam_policy_document" "resource_policy" {
   }
 
   statement {
-    sid = "AllowAWSServices"
-
-    actions = ["kms:*"]
-
-    resources = ["*"]
-
-    principals {
-      type = "Service"
-      identifiers = ["dynamodb.amazonaws.com"]
-    }
-  }
-
-  # https://aws.amazon.com/blogs/security/how-to-define-least-privileged-permissions-for-actions-called-by-aws-services/
-  statement {
-    sid = "AllowKMSActionsViaDDB"
-    effect = "Allow"
-    # allow DDB to use the key as long as the local IAM principal is authorized to do so
-    principals {
-      type = "AWS"
-      identifiers = distinct(
-      concat(
-      var.allow_administer_resource_arns,
-      var.allow_read_data_arns,
-      var.allow_write_data_arns,
-      ),
-      )
-    }
-    actions = [
-      "kms:Encrypt",
-      "kms:Decrypt",
-      "kms:ReEncrypt*",
-      "kms:GenerateDataKey",
-      "kms:DescribeKey"
-    ]
-    resources = ["*"]
-
-    condition {
-      test = "ForAnyValue:StringEquals"
-      variable = "aws:CalledVia"
-      values = ["dynamodb.amazonaws.com"]
-    }
-  }
-
-  statement {
     sid = "DenyEveryoneElse"
 
     effect = "Deny"

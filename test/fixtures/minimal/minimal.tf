@@ -126,7 +126,14 @@ output "module_under_test-key_id" {
   value = module.it_minimal.key_id
 }
 
+output "module_under_test-key_arn" {
+  value = module.it_minimal.key_arn
+}
+
 output "module_under_test-key_alias" {
   value = module.it_minimal.key_alias
 }
 
+output "module_under_test-encrypted_ddb_table_id" {
+  value = aws_dynamodb_table.encrypted.id
+}

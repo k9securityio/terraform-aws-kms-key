@@ -44,13 +44,10 @@ module "it_minimal" {
   deletion_window_in_days = 7
 }
 
-// Triggers bug in TF!
-// Error: Provider produced inconsistent final plan
-//resource "local_file" "it_minimal_policy" {
-//  content  = module.it_minimal.policy_json
-//  filename = "${path.module}/generated/it_minimal_policy.json"
-//}
-
+resource "local_file" "it_minimal_policy" {
+  content  = module.it_minimal.policy_json
+  filename = "${path.module}/generated/it_minimal_policy.json"
+}
 
 locals {
   example_administrator_arns = [

@@ -44,6 +44,14 @@ module "it_minimal" {
   deletion_window_in_days = 7
 }
 
+// Triggers bug in TF!
+// Error: Provider produced inconsistent final plan
+//resource "local_file" "it_minimal_policy" {
+//  content  = module.it_minimal.policy_json
+//  filename = "${path.module}/generated/it_minimal_policy.json"
+//}
+
+
 locals {
   example_administrator_arns = [
     "arn:aws:iam::12345678910:user/ci",
@@ -71,6 +79,23 @@ module "declarative_privilege_policy" {
 resource "local_file" "declarative_privilege_policy" {
   content  = module.declarative_privilege_policy.policy_json
   filename = "${path.module}/generated/declarative_privilege_policy.json"
+}
+
+resource "aws_dynamodb_table" "encrypted" {
+  name = "${var.logical_name}-${local.testing_suffix_hex}"
+  hash_key = "key"
+
+  attribute {
+      name = "key"
+      type = "S"
+    }
+
+  server_side_encryption {
+    enabled = true
+    kms_key_arn = module.it_minimal.key_arn
+  }
+
+  billing_mode = "PAY_PER_REQUEST"
 }
 
 variable "logical_name" {
@@ -101,7 +126,14 @@ output "module_under_test-key_id" {
   value = module.it_minimal.key_id
 }
 
+output "module_under_test-key_arn" {
+  value = module.it_minimal.key_arn
+}
+
 output "module_under_test-key_alias" {
   value = module.it_minimal.key_alias
 }
 
+output "module_under_test-encrypted_ddb_table_id" {
+  value = aws_dynamodb_table.encrypted.id
+}

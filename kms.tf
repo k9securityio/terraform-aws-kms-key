@@ -1,3 +1,5 @@
+data "aws_region" "current" {}
+
 locals {
   key_name = "${var.org}-${var.env}-${var.logical_name}"
 }
@@ -66,3 +68,26 @@ resource "aws_kms_alias" "alias" {
   target_key_id = aws_kms_key.key.key_id
 }
 
+//resource "aws_kms_grant" "aws_services" {
+//  name              = "DynamoDB"
+//  key_id            = aws_kms_key.key.key_id
+//  grantee_principal = "dynamodb.amazonaws.com"
+//  // operations        = ["Encrypt", "Decrypt", "GenerateDataKey"]
+//  operations = [
+//    "Decrypt",
+//    "Encrypt",
+//    "GenerateDataKey",
+//    "GenerateDataKeyWithoutPlaintext",
+//    "ReEncryptFrom",
+//    "ReEncryptTo",
+//    "CreateGrant",
+//    "RetireGrant",
+//    "DescribeKey"
+//  ]
+//
+////  constraints {
+////    encryption_context_equals = {
+////      Department = "Finance"
+////    }
+////  }
+//}

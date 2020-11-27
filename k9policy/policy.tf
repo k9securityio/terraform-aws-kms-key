@@ -1,3 +1,5 @@
+data "aws_caller_identity" "current" {}
+
 locals {
   # future work: retrieve action mappings from k9 api
   actions_administer_resource = sort(
@@ -46,6 +48,23 @@ locals {
 }
 
 data "aws_iam_policy_document" "resource_policy" {
+  statement {
+    # Ensure account's root user retains access to key
+    # even if access is removed for all other principals or those principals are removed
+    sid = "AllowRootUserToAdministerKey"
+
+    effect = "Allow"
+    
+    actions = ["kms:*"]
+
+    principals {
+      type = "AWS"
+      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
+    }
+
+    resources = ["*"]
+  }
+
   statement {
     sid = "AllowRestrictedAdministerResource"
 
@@ -150,9 +169,12 @@ data "aws_iam_policy_document" "resource_policy" {
 
     resources = ["*"]
 
+    # Deny access to all IAM principals in the account unless explicitly allowed
     principals {
       type        = "AWS"
-      identifiers = ["*"]
+      identifiers = [
+        data.aws_caller_identity.current.account_id,
+      ]
     }
 
     condition {
@@ -169,4 +191,3 @@ data "aws_iam_policy_document" "resource_policy" {
     }
   }
 }
-

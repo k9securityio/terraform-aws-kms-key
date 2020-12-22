@@ -1,6 +1,7 @@
 # Terraform AWS KMS key and policy module #
 
-k9 Security's tf_aws_kms_key helps you protect data by creating an AWS KMS Encryption Key with safe defaults and a 
+k9 Security's 
+terraform-aws-kms-key helps you protect data by creating an AWS KMS Encryption Key with safe defaults and a 
 least-privilege key policy built on the 
 [k9 access capability model](https://k9security.io/docs/k9-access-capability-model/).
 
@@ -26,7 +27,9 @@ Specify context about your use case and intended access, then the module will:
 * generate a least privilege resource policy using the [k9 access capability model](https://k9security.io/docs/k9-access-capability-model/)
 * tag resources according to the [k9 tagging model](https://k9security.io/docs/guide-to-tagging-cloud-deployments/)
 
-[![CircleCI](https://circleci.com/gh/k9securityio/tf_aws_kms_key.svg?style=svg)](https://circleci.com/gh/k9securityio/tf_aws_kms_key)
+[![CircleCI](https://circleci.com/gh/k9securityio/
+terraform-aws-kms-key.svg?style=svg)](https://circleci.com/gh/k9securityio/
+terraform-aws-kms-key)
 
 ## Usage
 The root of this repository contains a Terraform module that manages an AWS KMS key ([KMS key API](interface.md)).
@@ -66,7 +69,8 @@ locals {
 Now instantiate the module with a definition like this:
 ```hcl-terraform
 module "encryption_key" {
-  source = "git@github.com:k9securityio/tf_aws_kms_key.git"
+  source = "git@github.com:k9securityio/
+terraform-aws-kms-key.git"
   
   # the logical name for the use case, e.g. docs, reports, media, backups 
   logical_name = "docs"
@@ -117,7 +121,8 @@ Instantiate the `k9policy` module directly like this:
 
 ```hcl-terraform
 module "least_privilege_key_resource_policy" {
-  source        = "git@github.com:k9securityio/tf_aws_kms_key.git//k9policy"
+  source        = "git@github.com:k9securityio/
+terraform-aws-kms-key.git//k9policy"
   kms_key_arn   = module.encryption_key.key_arn
 
   allow_administer_resource_arns = local.administrator_arns

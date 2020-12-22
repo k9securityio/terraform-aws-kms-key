@@ -1,3 +1,4 @@
 ---
 name: minimal
-title: Minimal Test Suite for tf_aws_kms_key
+title: Minimal Test Suite for
+terraform-aws-kms-key

@@ -55,7 +55,7 @@ locals {
     , "arn:aws:iam::12345678910:user/person1"
   ]
 
-  read_config_arns = local.administrator_arns
+  read_config_arns = concat(local.administrator_arns, ["arn:aws:iam::12345678910:role/k9-auditor"])
 
   read_data_arns = [
     "arn:aws:iam::12345678910:user/person1",

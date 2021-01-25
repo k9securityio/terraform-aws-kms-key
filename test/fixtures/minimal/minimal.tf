@@ -39,6 +39,7 @@ module "it_minimal" {
   app   = var.app
 
   allow_administer_resource_arns = local.administrator_arns
+  allow_read_config_arns         = local.read_config_arns
   allow_read_data_arns           = local.read_data_arns
   allow_write_data_arns          = local.write_data_arns
   # unused: allow_delete_data_arns          = [] (default)

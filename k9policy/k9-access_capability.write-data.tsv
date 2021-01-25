@@ -8,5 +8,3 @@ kms:ImportKeyMaterial
 kms:ReEncryptFrom
 kms:ReEncryptTo
 kms:Sign
-kms:UpdateAlias
-kms:UpdateKeyDescription

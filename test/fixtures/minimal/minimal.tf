@@ -16,6 +16,8 @@ locals {
     "arn:aws:sts::139710491120:federated-user/skuenzli",
   ]
 
+  read_config_arns = concat(local.administrator_arns, ["arn:aws:iam::139710491120:role/k9-auditor"])
+
   write_data_arns = [
       "arn:aws:iam::139710491120:user/skuenzli",
     ]
@@ -57,6 +59,8 @@ locals {
     "arn:aws:iam::12345678910:user/person1",
   ]
 
+  example_read_config_arns = local.administrator_arns
+
   example_read_data_arns = [
     "arn:aws:iam::12345678910:user/person1",
     "arn:aws:iam::12345678910:role/appA",
@@ -69,6 +73,7 @@ module "declarative_privilege_policy" {
   source = "../../../k9policy"
 
   allow_administer_resource_arns = local.example_administrator_arns
+  allow_read_config_arns         = local.example_read_config_arns
   allow_read_data_arns           = local.example_read_data_arns
   allow_write_data_arns          = local.example_write_data_arns
   # unused: allow_delete_data_arns          = [] (default)

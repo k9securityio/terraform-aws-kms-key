@@ -1,0 +1,12 @@
+kms:DescribeCustomKeyStores
+kms:DescribeKey
+kms:GetKeyPolicy
+kms:GetKeyRotationStatus
+kms:GetParametersForImport
+kms:GetPublicKey
+kms:ListAliases
+kms:ListGrants
+kms:ListKeyPolicies
+kms:ListKeys
+kms:ListResourceTags
+kms:ListRetirableGrants

@@ -14,7 +14,9 @@
       "Sid": "AllowRestrictedAdministerResource",
       "Effect": "Allow",
       "Action": [
+        "kms:UpdateKeyDescription",
         "kms:UpdateCustomKeyStore",
+        "kms:UpdateAlias",
         "kms:UntagResource",
         "kms:TagResource",
         "kms:ScheduleKeyDeletion",
@@ -48,10 +50,9 @@
       }
     },
     {
-      "Sid": "AllowRestrictedReadData",
+      "Sid": "AllowRestrictedReadConfig",
       "Effect": "Allow",
       "Action": [
-        "kms:Verify",
         "kms:ListRetirableGrants",
         "kms:ListResourceTags",
         "kms:ListKeys",
@@ -63,7 +64,27 @@
         "kms:GetKeyRotationStatus",
         "kms:GetKeyPolicy",
         "kms:DescribeKey",
-        "kms:DescribeCustomKeyStores",
+        "kms:DescribeCustomKeyStores"
+      ],
+      "Resource": "*",
+      "Principal": {
+        "AWS": "*"
+      },
+      "Condition": {
+        "ArnEquals": {
+          "aws:PrincipalArn": [
+            "arn:aws:iam::12345678910:user/person1",
+            "arn:aws:iam::12345678910:user/ci",
+            "arn:aws:iam::12345678910:role/k9-auditor"
+          ]
+        }
+      }
+    },
+    {
+      "Sid": "AllowRestrictedReadData",
+      "Effect": "Allow",
+      "Action": [
+        "kms:Verify",
         "kms:Decrypt"
       ],
       "Resource": "*",
@@ -83,8 +104,6 @@
       "Sid": "AllowRestrictedWriteData",
       "Effect": "Allow",
       "Action": [
-        "kms:UpdateKeyDescription",
-        "kms:UpdateAlias",
         "kms:Sign",
         "kms:ReEncryptTo",
         "kms:ReEncryptFrom",

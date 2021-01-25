@@ -37,6 +37,7 @@ writing a least privilege access policy directly in terms of API actions like `k
 who should be able to `read-data`.  This module supports the following access capabilities:
 
 * `administer-resource`
+* `read-config`
 * `read-data`
 * `write-data`
 * `delete-data`   
@@ -53,6 +54,8 @@ locals {
     "arn:aws:iam::12345678910:user/ci"
     , "arn:aws:iam::12345678910:user/person1"
   ]
+
+  read_config_arns = concat(local.administrator_arns, ["arn:aws:iam::12345678910:role/k9-auditor"])
 
   read_data_arns = [
     "arn:aws:iam::12345678910:user/person1",
@@ -77,6 +80,7 @@ module "encryption_key" {
   app   = "someapi"
 
   allow_administer_resource_arns = local.administrator_arns
+  allow_read_config_arns         = local.read_config_arns
   allow_read_data_arns           = local.read_data_arns
   allow_write_data_arns          = local.write_data_arns
 }
@@ -121,6 +125,7 @@ module "least_privilege_key_resource_policy" {
   kms_key_arn   = module.encryption_key.key_arn
 
   allow_administer_resource_arns = local.administrator_arns
+  allow_read_config_arns         = local.read_config_arns
   allow_read_data_arns           = local.read_data_arns
   allow_write_data_arns          = local.write_data_arns
 }

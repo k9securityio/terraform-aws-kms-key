@@ -6,6 +6,7 @@ locals {
     var.allow_custom_arns_test,
     var.allow_delete_data_test,
     var.allow_read_data_test,
+    var.allow_read_config_test,
     var.allow_write_data_test,
   ]
   like_used_in_test_condition = contains(local.tests_used_in_statements, "ArnLike")
@@ -19,6 +20,16 @@ locals {
           file(
             "${path.module}/k9-access_capability.administer-resource.tsv",
           ),
+        ),
+      ),
+    ),
+  )
+  actions_read_config = sort(
+    distinct(
+      compact(
+        split(
+          "\n",
+          file("${path.module}/k9-access_capability.read-config.tsv"),
         ),
       ),
     ),
@@ -93,6 +104,25 @@ data "aws_iam_policy_document" "resource_policy" {
     }
   }
 
+  statement {
+    sid = "AllowRestrictedReadConfig"
+
+    actions = local.actions_read_config
+
+    resources = ["*"]
+
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+
+    condition {
+      test     = var.allow_read_config_test
+      values   = var.allow_read_config_arns
+      variable = "aws:PrincipalArn"
+    }
+  }
+  
   statement {
     sid = "AllowRestrictedReadData"
 

@@ -208,12 +208,9 @@ data "aws_iam_policy_document" "resource_policy" {
 
     resources = ["*"]
 
-    # Deny access to all IAM principals in the account unless explicitly allowed
     principals {
       type        = "AWS"
-      identifiers = [
-        data.aws_caller_identity.current.account_id,
-      ]
+      identifiers = ["*"]
     }
 
     condition {
@@ -227,6 +224,11 @@ data "aws_iam_policy_document" "resource_policy" {
         ),
       )
       variable = "aws:PrincipalArn"
+    }
+    condition {
+      test = "Bool"
+      values = ["false"]
+      variable = "aws:PrincipalIsAWSService"
     }
   }
 }

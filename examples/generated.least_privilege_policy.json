@@ -43,8 +43,8 @@
       "Condition": {
         "ArnEquals": {
           "aws:PrincipalArn": [
-            "arn:aws:iam::12345678910:user/person1",
-            "arn:aws:iam::12345678910:user/ci"
+            "arn:aws:iam::12345678910:user/ci",
+            "arn:aws:iam::12345678910:user/person1"
           ]
         }
       }
@@ -73,8 +73,8 @@
       "Condition": {
         "ArnEquals": {
           "aws:PrincipalArn": [
-            "arn:aws:iam::12345678910:user/person1",
             "arn:aws:iam::12345678910:user/ci",
+            "arn:aws:iam::12345678910:user/person1",
             "arn:aws:iam::12345678910:role/k9-auditor"
           ]
         }
@@ -165,14 +165,19 @@
       "Action": "kms:*",
       "Resource": "*",
       "Principal": {
-        "AWS": "12345678910"
+        "AWS": "*"
       },
       "Condition": {
         "ArnNotEquals": {
           "aws:PrincipalArn": [
-            "arn:aws:iam::12345678910:user/person1",
             "arn:aws:iam::12345678910:user/ci",
+            "arn:aws:iam::12345678910:user/person1",
             "arn:aws:iam::12345678910:role/appA"
+          ]
+        },
+        "Bool": {
+          "aws:PrincipalIsAWSService": [
+            "false"
           ]
         }
       }

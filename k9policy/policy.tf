@@ -65,6 +65,8 @@ locals {
       ),
     ),
   )
+
+  account_root_user_arn="arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
 }
 
 data "aws_iam_policy_document" "resource_policy" {
@@ -79,7 +81,7 @@ data "aws_iam_policy_document" "resource_policy" {
 
     principals {
       type = "AWS"
-      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
+      identifiers = [local.account_root_user_arn]
     }
 
     resources = ["*"]
@@ -217,6 +219,7 @@ data "aws_iam_policy_document" "resource_policy" {
       test = local.like_used_in_test_condition ? "ArnNotLike" : "ArnNotEquals"
       values = distinct(
         concat(
+          [local.account_root_user_arn],
           var.allow_administer_resource_arns,
           var.allow_read_data_arns,
           var.allow_write_data_arns,

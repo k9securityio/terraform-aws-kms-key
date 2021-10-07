@@ -233,5 +233,10 @@ data "aws_iam_policy_document" "resource_policy" {
       values = ["false"]
       variable = "aws:PrincipalIsAWSService"
     }
+    condition {
+      test = "Bool"
+      values = ["false"]
+      variable = "kms:GrantIsForAWSResource"
+    }
   }
 }

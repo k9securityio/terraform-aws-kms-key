@@ -14,6 +14,8 @@ locals {
     "arn:aws:iam::139710491120:user/ci",
     "arn:aws:iam::139710491120:user/skuenzli",
     "arn:aws:sts::139710491120:federated-user/skuenzli",
+    "arn:aws:iam::139710491120:role/k9-dev-appeng",
+    "arn:aws:sts::139710491120:assumed-role/k9-dev-appeng/console"
   ]
 
   read_config_arns = concat(local.administrator_arns, ["arn:aws:iam::139710491120:role/k9-auditor"])

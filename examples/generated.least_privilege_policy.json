@@ -179,6 +179,9 @@
         "Bool": {
           "aws:PrincipalIsAWSService": [
             "false"
+          ],
+          "kms:GrantIsForAWSResource": [
+            "false"
           ]
         }
       }

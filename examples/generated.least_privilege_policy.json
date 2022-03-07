@@ -173,7 +173,8 @@
             "arn:aws:iam::12345678910:root",
             "arn:aws:iam::12345678910:user/ci",
             "arn:aws:iam::12345678910:user/person1",
-            "arn:aws:iam::12345678910:role/appA"
+            "arn:aws:iam::12345678910:role/appA",
+            "arn:aws:iam::12345678910:role/k9-auditor"
           ]
         },
         "Bool": {

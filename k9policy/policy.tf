@@ -222,8 +222,10 @@ data "aws_iam_policy_document" "resource_policy" {
           [local.account_root_user_arn],
           var.allow_administer_resource_arns,
           var.allow_read_data_arns,
+          var.allow_read_config_arns,
           var.allow_write_data_arns,
           var.allow_delete_data_arns,
+          var.allow_custom_actions_arns,
         ),
       )
       variable = "aws:PrincipalArn"

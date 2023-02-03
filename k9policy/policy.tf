@@ -70,23 +70,8 @@ locals {
 }
 
 data "aws_iam_policy_document" "resource_policy" {
-  statement {
-    # Ensure account's root user retains access to key
-    # even if access is removed for all other principals or those principals are removed
-    sid = "AllowRootUserToAdministerKey"
-
-    effect = "Allow"
-    
-    actions = ["kms:*"]
-
-    principals {
-      type = "AWS"
-      identifiers = [local.account_root_user_arn]
-    }
-
-    resources = ["*"]
-  }
-
+  version = "2012-10-17"
+  
   statement {
     sid = "AllowRestrictedAdministerResource"
 
@@ -201,44 +186,4 @@ data "aws_iam_policy_document" "resource_policy" {
     }
   }
 
-  statement {
-    sid = "DenyEveryoneElse"
-
-    effect = "Deny"
-
-    actions = ["kms:*"]
-
-    resources = ["*"]
-
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
-
-    condition {
-      test = local.like_used_in_test_condition ? "ArnNotLike" : "ArnNotEquals"
-      values = distinct(
-        concat(
-          [local.account_root_user_arn],
-          var.allow_administer_resource_arns,
-          var.allow_read_config_arns,
-          var.allow_read_data_arns,
-          var.allow_write_data_arns,
-          var.allow_delete_data_arns,
-          var.allow_custom_actions_arns,
-        ),
-      )
-      variable = "aws:PrincipalArn"
-    }
-    condition {
-      test = "Bool"
-      values = ["false"]
-      variable = "aws:PrincipalIsAWSService"
-    }
-    condition {
-      test = "Bool"
-      values = ["false"]
-      variable = "kms:GrantIsForAWSResource"
-    }
-  }
 }

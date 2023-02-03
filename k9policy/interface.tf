@@ -2,6 +2,11 @@ variable "allow_administer_resource_arns" {
   type        = list(string)
   default     = []
   description = "The list of fully-qualified AWS IAM ARNs authorized to administer this bucket. Wildcards are supported. e.g. arn:aws:iam::12345678910:user/ci or arn:aws:iam::12345678910:role/app-backend-*"
+
+  validation {
+    condition     = length(var.allow_administer_resource_arns) > 0
+    error_message = "A key administrator is required, but none were specified."
+  }
 }
 
 variable "allow_administer_resource_test" {

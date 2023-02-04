@@ -2,15 +2,6 @@
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Sid": "AllowRootUserToAdministerKey",
-      "Effect": "Allow",
-      "Action": "kms:*",
-      "Resource": "*",
-      "Principal": {
-        "AWS": "arn:aws:iam::12345678910:root"
-      }
-    },
-    {
       "Sid": "AllowRestrictedAdministerResource",
       "Effect": "Allow",
       "Action": [
@@ -156,34 +147,6 @@
       "Condition": {
         "ArnEquals": {
           "aws:PrincipalArn": []
-        }
-      }
-    },
-    {
-      "Sid": "DenyEveryoneElse",
-      "Effect": "Deny",
-      "Action": "kms:*",
-      "Resource": "*",
-      "Principal": {
-        "AWS": "*"
-      },
-      "Condition": {
-        "ArnNotEquals": {
-          "aws:PrincipalArn": [
-            "arn:aws:iam::12345678910:root",
-            "arn:aws:iam::12345678910:user/ci",
-            "arn:aws:iam::12345678910:user/person1",
-            "arn:aws:iam::12345678910:role/appA",
-            "arn:aws:iam::12345678910:role/k9-auditor"
-          ]
-        },
-        "Bool": {
-          "aws:PrincipalIsAWSService": [
-            "false"
-          ],
-          "kms:GrantIsForAWSResource": [
-            "false"
-          ]
         }
       }
     }

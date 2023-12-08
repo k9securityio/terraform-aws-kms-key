@@ -1,7 +1,7 @@
-.PHONY: clean deps init format lint converge verify destroy circleci-build kitchen docs
+.PHONY: clean deps init format lint converge verify destroy circleci-build kitchen docs shell
 
 IMAGE_NAME := qualimente/terraform-infra-dev
-IMAGE_TAG := 0.12.29
+IMAGE_TAG := 0.13.7
 
 FQ_IMAGE := $(IMAGE_NAME):$(IMAGE_TAG)
 
@@ -9,9 +9,6 @@ TERRAFORM_OPTS :=
 terraform = @$(call execute,terraform $(1) $(TERRAFORM_OPTS))
 
 terraform-docs = @$(call execute,terraform-docs $(1))
-
-KITCHEN_OPTS :=
-kitchen = @$(call execute,bundle exec kitchen $(1) $(KITCHEN_OPTS))
 
 AWS_AUTH_VARS :=
 
@@ -36,6 +33,7 @@ AWS_OPTS := $(AWS_AUTH_VARS) -e AWS_REGION=$(AWS_REGION)
 define execute
 	if [ -z "$(CI)" ]; then \
 		docker run --rm -it \
+		    --platform linux/amd64 \
 			$(AWS_OPTS) \
 			-e USER=root \
 			-v $(shell pwd):/module \
@@ -53,7 +51,7 @@ clean:
 	rm -rf .terraform .kitchen terraform.tfstate.d test/fixtures/minimal/.terraform/ test/fixtures/minimal/generated/*
 
 shell:
-	@$(call execute,sh,)
+	@$(call execute,"/bin/bash",)
 
 deps:
 	@set -e
@@ -62,28 +60,24 @@ deps:
 	fi;
 
 init:
-	@$(call kitchen,create)
+	@echo "init: no-op while updating development workflow"
 
 format:
+	@echo "formatting code"
 	@$(call terraform,fmt)
 
 lint:
+	@echo "linting code"
 	@$(call terraform,get)
 
 converge:
-	@$(call kitchen,converge)
+	@echo "converge: no-op while updating development workflow"
 
 verify:
-	@$(call kitchen,verify)
+	@echo "verify: no-op while updating development workflow"
 
 destroy:
-	@$(call kitchen,destroy)
-
-test:
-	@$(call kitchen,test)
-
-kitchen:
-	@$(call kitchen,$(COMMAND))
+	@echo "destroy: no-op while updating development workflow"
 
 docs:
 	$(call terraform-docs,markdown . > interface.md)

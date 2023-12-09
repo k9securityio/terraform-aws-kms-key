@@ -82,7 +82,8 @@ destroy:
 docs:
 	$(call terraform-docs,markdown . > interface.md)
 	$(call terraform-docs,markdown ./k9policy > k9policy/interface.md)
-	@awk '{sub("139710491120","12345678910")}1' test/fixtures/minimal/generated/declarative_privilege_policy.json	> examples/generated.least_privilege_policy.json
+	# temporary: re-enable once testing is supported
+	# @awk '{sub("139710491120","12345678910")}1' test/fixtures/minimal/generated/declarative_privilege_policy.json	> examples/generated.least_privilege_policy.json
 
 all: deps init format converge verify docs
 
